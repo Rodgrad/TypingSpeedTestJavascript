@@ -1,2 +1,2 @@
 # TypingSpeedTestJavascript
-Javascript typing speed app.
+JavaScript typing speed app.
