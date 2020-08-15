@@ -278,7 +278,6 @@ class Progression{
 
     validateLetter(word, letter){
         // IF Backspace
-        console.log(word[letterIndex], " letIx ",  letterIndex , "   letixnum", letter, "  let",  firstError, " first err");
         if(event.keyCode == 8){
             if(errorCounterLetter > 0 ){
                  errorCounterLetter--;}
