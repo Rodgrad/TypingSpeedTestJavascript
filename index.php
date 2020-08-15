@@ -7,7 +7,7 @@
 
 <head>
     <title>Typing Test</title>
-    <meta type='description' content="Typing speed test app. Test how fast you can type.">
+    <meta name='description' content="Keyboard Typing Test is an app to test your typing speed and to improve your typing speed by practice. Type every day to get better at speed typing. Fast typing speed can save you a lot of time."/>
     <meta property="og:image" content="https://keyboardtypingtest.com/css/preview08.png"/>
     <meta property="og:url" content="https://keyboardtypingtest.com/" />
     <meta property="og:image:width" content="300" />
