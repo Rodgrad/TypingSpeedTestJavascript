@@ -2,7 +2,7 @@
 System keys for exclusion
 */
 var sysKeys = new Array(17, 32, 13, 18, 16, 20, 37, 38, 39, 40);
-var sysAllKeys = new Array(17, 8, 18, 16, 20, 37, 38, 39, 40);
+var sysAllKeys = new Array(17, 8, 18, 16, 20, 37, 38, 39, 40,191,190,188, 59, 222, 219, 221);
 
 /*
 Holds text from file
@@ -62,15 +62,15 @@ class Main{
         // wpm[1]_ is percentage , wpm [0] is number count
         var msg;
         if(wpm[1] < 50 || wpm[0] < 25) {
-            msg = "You could do better, friend. Practice every day for 20 minutes. And drink coffe... or tea.";
+            msg = "You could do better. Practice every day for 20 minutes to achieve better results. ";
         }else if(wpm[1] < 70 && wpm[1] >= 50 || wpm[0] < 60 && wpm[0] >= 25){
-            msg = "You are doing pretty well. With little practice you could improve to professional.";
+            msg = "You are doing pretty well. With little practice, you could improve to professional.";
         }
         else if(wpm[1] < 80 && wpm[1] >= 70 || wpm[0] < 80 && wpm[0] >= 60){
-            msg = "You are crushing it, you are so close to become the legend.";
+            msg = "You are crushing it. You are becoming a true legend. Impressive!";
         }
         else if(wpm[1] > 70 &&  wpm[0] >= 80){
-            msg = "You are top of the class, true professional. You can do anything.";
+            msg = "You are top of the class, a true professional. You can do anything.";
         }
 
         set.setResultMsg(msg);
@@ -93,8 +93,8 @@ class Setter{
         if(textFile.length < 2){get.getText('words.txt');}
 
 
-        this.setStatsStyle('col-stats', 'none', ' #cecece');
-        set.setStatsStyle('stats-title', 'none', ' #a5bcff');
+        this.setStatsStyle('col-stats', 'none', '#717a9b)');
+        set.setStatsStyle('stats-title', 'none', '#717a9b');
 
         this.setNullGlobals();
         get.getRandomized();
@@ -224,10 +224,10 @@ class Getter{
             progress.validateLetter(getWord[0], letter);
         }
 
-
-        progress.calculateCpmAccuracy();
-        document.getElementById('cpm').innerHTML="<p>" + cpmPoints + "</p>"
-
+        if (cpmPoints > 0){
+            progress.calculateCpmAccuracy();
+            document.getElementById('cpm').innerHTML="<p>" + cpmPoints + "</p>"
+        }
     }
 
     // GET next word
@@ -279,6 +279,9 @@ class Progression{
     validateLetter(word, letter){
         // IF Backspace
         if(event.keyCode == 8){
+            if (cpmPoints < 1){
+                currentWord = word;
+            }
             if(errorCounterLetter > 0 ){
                  errorCounterLetter--;}
             if(letterIndex > 0){
@@ -295,7 +298,6 @@ class Progression{
             if(backtrackWord == word || backtrackWord.length > word.length){
                 currentWord = '';
             }
-
             document.getElementById('current').innerHTML = currentWord;
           
         }// Letter character entry
@@ -379,14 +381,13 @@ class Timer{
     start_time(){
         var seconds = 60;
         var timer = setInterval(function(){    
-            if (seconds == 50){
+            if (seconds == 0){
                 clearInterval(timer);
                 main.stopRound();
             }
             document.getElementById('time').innerHTML = "<p>" + (seconds--) + "s</p>";}, 1000);  
      }
 }
-
 
 
 
