@@ -278,22 +278,17 @@ class Progression{
     */
 
 
-
-
     validateLetter(word, letter){
         // IF Backspace
         if(event.keyCode == 8){
-            if (cpmPoints < 1){
-                currentWord = word;
-            }
+            
             if(errorCounterLetter > 0 ){
                  errorCounterLetter--;
             }
             if(letterIndex > 0){
                 letterIndex--;
             }
-                
-            if(errorCounterLetter < 1 && word[letterIndex] == backtrackWord[letterIndex]  && backtrackWord ){
+            if(errorCounterLetter <= 0 && word[letterIndex] == backtrackWord[letterIndex]){
                 currentWord = backtrackWord[letterIndex] + currentWord;
                 firstError = false;
             }
@@ -301,6 +296,9 @@ class Progression{
             if(backtrackWord.length < 1 || backtrackWord == word.slice(0, letterIndex) && letterIndex >=0 ){
                 firstError = false;
                 document.getElementById('editor').style= "color:black;";
+            }
+            if(currentWord==''){
+                currentWord=word;
             }
 
             document.getElementById('current').innerHTML = currentWord;
