@@ -72,7 +72,9 @@ class Main{
         else if(wpm[1] > 70 &&  wpm[0] >= 80){
             msg = "You are top of the class, a true professional. You can do anything.";
         }
-
+        if (wpm[0] > 10){
+            ajaxifyDB('POST', wpm[0]);
+        }
         set.setResultMsg(msg);
    
     }
@@ -103,8 +105,8 @@ class Setter{
         document.getElementById('publish').style = "display:none;";
         document.getElementById('editor').innerHTML = "";
         document.getElementById('editor').innerHTML.trim();
-
         document.getElementById('editor').style= "color:black;";
+        scoreGraphCHART();
 
 
 
@@ -276,6 +278,8 @@ class Progression{
     */
 
 
+
+
     validateLetter(word, letter){
         // IF Backspace
         if(event.keyCode == 8){
@@ -283,10 +287,13 @@ class Progression{
                 currentWord = word;
             }
             if(errorCounterLetter > 0 ){
-                 errorCounterLetter--;}
+                 errorCounterLetter--;
+            }
             if(letterIndex > 0){
-            letterIndex--;}
-            if(errorCounterLetter < 1 && word[letterIndex] == backtrackWord[letterIndex] && letterIndex >= 0 && backtrackWord ){
+                letterIndex--;
+            }
+                
+            if(errorCounterLetter < 1 && word[letterIndex] == backtrackWord[letterIndex]  && backtrackWord ){
                 currentWord = backtrackWord[letterIndex] + currentWord;
                 firstError = false;
             }
@@ -295,18 +302,17 @@ class Progression{
                 firstError = false;
                 document.getElementById('editor').style= "color:black;";
             }
-            if(backtrackWord == word || backtrackWord.length > word.length){
-                currentWord = '';
-            }
+
             document.getElementById('current').innerHTML = currentWord;
           
         }// Letter character entry
         // IF correct letter
-        else if(event.keyCode != 8){
+        else if(!sysAllKeys.includes(event.keyCode)){
             if(word[letterIndex] == letter && !firstError){
                 backtrackWord = backtrackWord + letter;
                 currentWord  = word.substring(letterIndex+1);
                 letterIndex++;
+                
                 document.getElementById('current').innerHTML = currentWord;
                 document.getElementById('editor').style= "color:black;";
 
@@ -320,10 +326,6 @@ class Progression{
                 document.getElementById('editor').style= "color:red;";
                 firstError = true;
                 errorCounterLetter++;
-                if(currentWord == ''){
-                    currentWord = word;
-                }
-             
             }
         }
 
@@ -398,7 +400,7 @@ const set = new Setter();
 const main = new Main();
 const progress = new Progression();
 const timer = new Timer();
-window.onload = main.startRound(), document.hasFocus();
+window.onload = main.startRound(), document.hasFocus(), scoreGraphCHART();
 
 
 // User input event handler
@@ -414,6 +416,3 @@ document.getElementById('restart-btn').addEventListener('click', event => {
 
 });
 
-if(window.outerWidth < 800){
-    alert("Site is not supported for mobile devices, please visit us over desktop.");
-}
