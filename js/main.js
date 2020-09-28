@@ -297,7 +297,9 @@ class Progression{
                 firstError = false;
                 document.getElementById('editor').style= "color:black;";
             }
-
+            if(currentWord=='' && letterIndex == 0){
+                currentWord=word;
+            }
 
             document.getElementById('current').innerHTML = currentWord;
           
